@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দেশ নেতার ১০% চাঁদার হিসাব</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-red-700">দেশ নেতার ১০% চাঁদার হিসাব</h1>
+            <p id="funnyQuote" class="text-gray-600 mt-3 text-lg italic">"নোট দিলেই দেশ চলে ভাই, শুধু ভোটে হয় না!"</p>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Side: Input Form -->
+            <main class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 text-center">আপনার আয়ের বিবরণ দিন</h2>
+
+                <form id="chandaForm" class="space-y-6">
+                    <!-- নাম -->
+                    <div>
+                        <label for="userName" class="block font-medium mb-1">আপনার নাম (ঐচ্ছিক)</label>
+                        <input type="text" id="userName" class="w-full p-3 border rounded-lg" placeholder="যেমন: একজন দেশপ্রেমিক">
+                    </div>
+
+                    <!-- পেশা -->
+                    <div>
+                        <label for="profession" class="block font-medium mb-1">আপনার মহান পেশা</label>
+                        <select id="profession" class="w-full p-3 border rounded-lg"></select>
+                    </div>
+
+                    <!-- মাসিক আয় -->
+                    <div>
+                        <label for="monthlyIncome" class="block font-medium mb-1">মাসিক আয় (টাকায়)</label>
+                        <input type="number" id="monthlyIncome" class="w-full p-3 border rounded-lg" placeholder="সততার সাথে লিখুন!" required>
+                    </div>
+
+                    <!-- বড়লোক মোড -->
+                    <div class="flex items-center justify-between bg-yellow-100 p-3 rounded-lg">
+                        <label for="borolokMode" class="font-medium text-yellow-800">😎 বড়লোক মোড</label>
+                        <label class="switch">
+                            <input type="checkbox" id="borolokMode">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <!-- অতিরিক্ত আয়ের উৎস -->
+                    <div id="extra-income-container" class="space-y-4">
+                        <!-- Dynamic inputs will be added here -->
+                    </div>
+                    <button type="button" id="addIncomeBtn" class="w-full border-2 border-dashed border-gray-400 text-gray-600 font-semibold py-2 rounded-lg hover:bg-gray-200 transition">
+                        + অতিরিক্ত আয়ের উৎস যোগ করুন
+                    </button>
+
+                    <!-- ফানি মিটার -->
+                    <div class="meter-container">
+                        <div id="meter" class="meter-bar"></div>
+                        <span id="meter-text" class="meter-text">আরো দেন ভাই!</span>
+                    </div>
+
+                    <!-- সাবমিট বাটন -->
+                    <button type="submit" class="w-full bg-red-700 text-white text-xl font-bold py-4 rounded-lg hover:bg-red-800 transition-transform transform hover:scale-105">
+                        চাঁদার হিসাব করুন
+                    </button>
+                </form>
+
+                <!-- রিসিভ -->
+                <div id="receipt" class="hidden mt-10 p-6 border-2 border-dashed border-gray-400 rounded-lg relative">
+                    <!-- ভুয়া সিল -->
+                    <div class="seal-container">
+                        <svg class="seal-svg" viewBox="0 0 100 100"><defs><path id="circlePath" d="M 10, 50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" /></defs><circle cx="50" cy="50" r="48" fill="#FEE2E2" /><circle cx="50" cy="50" r="45" stroke="#DC2626" stroke-width="2" fill="none" /><text font-size="9" fill="#DC2626" font-weight="bold"><textPath href="#circlePath" startOffset="50%" text-anchor="middle">গণপ্রজাতন্ত্রী চাঁদা সরকার * অনুমোদিত</textPath></text><text x="50" y="55" text-anchor="middle" font-size="24" fill="#DC2626">★</text></svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-center mb-4">চাঁদার রিসিভ</h3>
+                    <div class="space-y-3 text-lg">
+                        <p><strong>মোট আয়:</strong> <span id="receiptTotalIncome" class="font-bold"></span></p>
+                        <p class="text-red-600"><strong>১০% চাঁদা:</strong> <span id="receiptChandaAmount" class="font-bold"></span></p>
+                        <p class="text-green-600"><strong>আপনার অবশিষ্ট:</strong> <span id="receiptRemainingAmount" class="font-bold"></span></p>
+                    </div>
+                    <p id="receiptMessage" class="mt-6 text-center text-indigo-700 font-semibold italic"></p>
+                </div>
+            </main>
+
+            <!-- Right Side: Leaderboard -->
+            <aside class="bg-white p-6 md:p-8 rounded-2xl shadow-lg mt-8 lg:mt-0">
+                <h3 class="text-2xl font-bold mb-6 text-center">সেরা দেশপ্রেমিকদের তালিকা 🏆</h3>
+                <div id="leaderboard" class="space-y-4">
+                    <p class="text-center text-gray-500">লোড হচ্ছে...</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Main App Script -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+
